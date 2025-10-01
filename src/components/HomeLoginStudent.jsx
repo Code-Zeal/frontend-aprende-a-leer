@@ -22,7 +22,7 @@ const HomeLoginStudent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://192.168.0.108:3000/auth/login', {
+            const response = await axios.post('https://aprende-a-leer.fly.dev/auth/login', {
                 email,
                 password,
             });
@@ -45,7 +45,7 @@ const HomeLoginStudent = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3000/auth/register', {
+            await axios.post('https://aprende-a-leer.fly.dev/auth/register', {
                 name: regName,
                 email: regEmail,
                 password: regPassword,
