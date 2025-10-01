@@ -22,7 +22,7 @@ const HomeLoginStudent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/auth/login', {
+            const response = await axios.post('http://192.168.0.108:3000/auth/login', {
                 email,
                 password,
             });

@@ -1,5 +1,6 @@
 import { Button } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 function Inicio() {
   const [user, setUser] = useState(null)
@@ -36,8 +37,9 @@ function Inicio() {
           </div>
         )}
       </div>
-
-       <Button color='yellow' className="w-full hover:cursor-pointer max-w-md bg-white rounded-xl shadow-lg p-8 text-gray-100 font-bold">Aprender a leer</Button>
+<Link to="/aprende" >
+  <Button color='yellow' className="w-full hover:cursor-pointer max-w-md bg-white rounded-xl shadow-lg p-8 text-gray-100 font-bold">Repite conmigo</Button>
+</Link>
     </div>
   )
 }
