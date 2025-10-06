@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
-import HomeLoginStudent from './components/HomeLoginStudent/';
-import LoginAdmin from './components/LoginAdmin';
-import Inicio from './components/Inicio';
-import AprendeALeer from './components/AprendeALeer';
+import HomeLoginStudent from './components/HomeLoginStudent.jsx';
+import LoginAdmin from './components/LoginAdmin.jsx';
+import Inicio from './components/Inicio.jsx';
+import AprendeALeer from './components/AprendeALeer.jsx';
 import Nivel1 from './components/AprendeALeer/Nivel1';
 import Nivel2 from './components/AprendeALeer/Nivel2';
 import Nivel3 from './components/AprendeALeer/Nivel3';
 import Nivel4 from './components/AprendeALeer/Nivel4';
-import HomeAdmin from './components/HomeAdmin';
+import HomeAdmin from './components/HomeAdmin.jsx';
 
 function App() {
   return (
