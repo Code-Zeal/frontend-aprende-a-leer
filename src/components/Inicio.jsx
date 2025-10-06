@@ -77,7 +77,7 @@ export default function Inicio() {
               <p className="text-muted-foreground">Descubre el mundo mágico de la lectura</p>
             </div>
 
-            <a href="/aprende" className="block">
+            <Link to="/aprende" className="block">
               <Button
                 size="lg"
                 className="w-full h-20 text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
@@ -86,7 +86,7 @@ export default function Inicio() {
                 Entrar al Juego
                 <Sparkles className="w-6 h-6 ml-3" />
               </Button>
-            </a>
+            </Link>
 
             <p className="text-center text-sm text-muted-foreground mt-4">¡Cada lectura es una nueva aventura! ✨</p>
           </div>
