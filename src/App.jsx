@@ -3,10 +3,10 @@ import HomeLoginStudent from './components/HomeLoginStudent.jsx';
 import LoginAdmin from './components/LoginAdmin.jsx';
 import Inicio from './components/Inicio.jsx';
 import AprendeALeer from './components/AprendeALeer.jsx';
-import Nivel1 from './components/AprendeALeer/Nivel1';
-import Nivel2 from './components/AprendeALeer/Nivel2';
-import Nivel3 from './components/AprendeALeer/Nivel3';
-import Nivel4 from './components/AprendeALeer/Nivel4';
+import Nivel1 from './components/AprendeALeer/Nivel1.jsx';
+import Nivel2 from './components/AprendeALeer/Nivel2.jsx';
+import Nivel3 from './components/AprendeALeer/Nivel3.jsx';
+import Nivel4 from './components/AprendeALeer/Nivel4.jsx';
 import HomeAdmin from './components/HomeAdmin.jsx';
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeLoginStudent />} />
         <Route path="/inicio" element={<Inicio />} />
-        <Route path="/aprende" element={<AprendeALeer />} />
+        <Route path="/aprende"  element={<AprendeALeer />} />
         <Route path="/aprende/nivel1" element={<Nivel1 />} />
         <Route path="/aprende/nivel2" element={<Nivel2 />} />
         <Route path="/aprende/nivel3" element={<Nivel3 />} />

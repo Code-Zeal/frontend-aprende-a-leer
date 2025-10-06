@@ -1,4 +1,3 @@
-
 import { Badge, Card } from "flowbite-react"
 import { ShieldCheck, User, Mail, Calendar, BookOpen, Sparkles } from "lucide-react"
 
