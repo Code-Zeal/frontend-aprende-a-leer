@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-export default function AprendePage() {
+export default function AprendeALeer() {
   const niveles = [
     {
       id: 1,
