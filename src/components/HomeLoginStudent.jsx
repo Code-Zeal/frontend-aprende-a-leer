@@ -80,7 +80,7 @@ const HomeLoginStudent = () => {
       }}
         >
            <form className="flex max-w-md flex-col gap-4 bg-black/90 px-14 py-16 rounded-lg bg-opacity-50" onSubmit={handleSubmit}>
-          <h2 >Bienvenido, por favor ingresa tus datos</h2>
+          <h2 className='text-white' >Bienvenido, por favor ingresa tus datos</h2>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="email1">Correo</Label>

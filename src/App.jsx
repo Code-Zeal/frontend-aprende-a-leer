@@ -7,6 +7,7 @@ import Nivel1 from './components/AprendeALeer/Nivel1';
 import Nivel2 from './components/AprendeALeer/Nivel2';
 import Nivel3 from './components/AprendeALeer/Nivel3';
 import Nivel4 from './components/AprendeALeer/Nivel4';
+import HomeAdmin from './components/HomeAdmin';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/aprende/nivel4" element={<Nivel4 />} />
 
         <Route path="/admin" element={<LoginAdmin />} />
+        <Route path="/admin/inicio" element={<HomeAdmin />} />
       </Routes>
     </>
   );
