@@ -135,7 +135,7 @@ export default function Nivel4() {
             <div className="text-primary-foreground">
               <p className="text-sm font-medium opacity-90">Progreso</p>
               <p className="text-xl font-bold">
-                {currentIndex + 1}/{totalWords} palabras
+                {currentIndex + 1}/{totalWords} frases
               </p>
             </div>
           </div>

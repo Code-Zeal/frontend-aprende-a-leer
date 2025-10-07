@@ -1,63 +1,38 @@
+import axios from "axios"
 import { Badge, Card } from "flowbite-react"
 import { ShieldCheck, User, Mail, Calendar, BookOpen, Sparkles } from "lucide-react"
+import { useEffect, useState } from "react"
 
 export default function HomeAdmin() {
   // Datos de ejemplo del administrador
-  const adminData = {
-    nombre: "Prof. Carlos Ramírez",
-  }
+ const [adminData, setAdminData] = useState(null)
+ const [students, setStudents] = useState([])
+   useEffect(() => {
+     const data = localStorage.getItem('admin')
+     if (data) {
+       setAdminData(JSON.parse(data))
+     }
+   }, [])
+   
+   //peticion a la api para obtener los estudiantes
+   const fetchStudents = async () => {
+     try {
+        const response = await axios.get('https://aprende-a-leer.fly.dev/user/getStudents');
+        console.log(response.data);
+        
+        setStudents(response.data);
+     } catch (error) {
+       console.error('Error fetching students:', error);
+     }
+   }
+  useEffect(() => {
+  fetchStudents();
+  }, [])
 
   // Lista de estudiantes de ejemplo
-  const estudiantes = [
-    {
-      id: 1,
-      nombre: "María González",
-      correo: "maria@ejemplo.com",
-      edad: 8,
-      nivel: "Principiante",
-    },
-    {
-      id: 2,
-      nombre: "Juan Pérez",
-      correo: "juan@ejemplo.com",
-      edad: 9,
-      nivel: "Intermedio",
-    },
-    {
-      id: 3,
-      nombre: "Ana Martínez",
-      correo: "ana@ejemplo.com",
-      edad: 7,
-      nivel: "Principiante",
-    },
-    {
-      id: 4,
-      nombre: "Luis Torres",
-      correo: "luis@ejemplo.com",
-      edad: 10,
-      nivel: "Avanzado",
-    },
-    {
-      id: 5,
-      nombre: "Sofia López",
-      correo: "sofia@ejemplo.com",
-      edad: 8,
-      nivel: "Intermedio",
-    },
-  ]
+  const estudiantes = students
 
-  const getNivelColor = (nivel) => {
-    switch (nivel) {
-      case "Principiante":
-        return "bg-green-100 text-green-800 border-green-300"
-      case "Intermedio":
-        return "bg-blue-100 text-blue-800 border-blue-300"
-      case "Avanzado":
-        return "bg-purple-100 text-purple-800 border-purple-300"
-      default:
-        return "bg-gray-100 text-gray-800 border-gray-300"
-    }
-  }
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 p-4 md:p-8">
@@ -67,7 +42,7 @@ export default function HomeAdmin() {
           <div className="flex items-center justify-center gap-2 mb-2">
             <Sparkles className="w-8 h-8 text-purple-600" />
             <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Lecturas Mágica
+              Lecturas Mágicas
             </h1>
             <Sparkles className="w-8 h-8 text-pink-600" />
           </div>
@@ -83,7 +58,7 @@ export default function HomeAdmin() {
               </div>
               <div className="text-white">
                 <p className="text-sm opacity-90">Administrador</p>
-                <h2 className="text-2xl font-bold">{adminData.nombre}</h2>
+                <h2 className="text-2xl font-bold">{adminData?.name}</h2>
               </div>
             </div>
           </div>
@@ -110,21 +85,20 @@ export default function HomeAdmin() {
                         <User className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <p className="font-semibold text-foreground">{estudiante.nombre}</p>
-                        <Badge className={getNivelColor(estudiante.nivel)}>{estudiante.nivel}</Badge>
+                        <p className="font-semibold text-foreground">{estudiante.name}</p>
                       </div>
                     </div>
 
                     {/* Correo */}
                     <div className="flex items-center gap-2 flex-1">
                       <Mail className="w-4 h-4 text-muted-foreground" />
-                      <p className="text-sm text-muted-foreground">{estudiante.correo}</p>
+                      <p className="text-sm text-muted-foreground">{estudiante.email}</p>
                     </div>
 
                     {/* Edad */}
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4 text-muted-foreground" />
-                      <p className="text-sm text-muted-foreground">{estudiante.edad} años</p>
+                      <p className="text-sm text-muted-foreground">{estudiante.age} años</p>
                     </div>
                   </div>
                 </Card>

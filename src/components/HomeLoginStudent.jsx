@@ -1,142 +1,211 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import { useNavigate } from 'react-router-dom';
-import wallpaper from '../assets/wallpaper.png';
-import { toast } from 'react-toastify';
-const HomeLoginStudent = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const [register, setRegister] = useState('');
 
-    const [regName, setRegName] = useState('');
-    const [regEmail, setRegEmail] = useState('');
-    const [regPassword, setRegPassword] = useState('');
-    const [regAge, setRegAge] = useState('');
-    const [regError, setRegError] = useState('');
-    const [regSuccess, setRegSuccess] = useState('');
+import { useState } from "react"
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
-    const navigate = useNavigate();
+export default function HomeLoginStudent() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('https://aprende-a-leer.fly.dev/auth/login', {
-                email,
-                password,
-            });
-            // Guarda los datos del usuario en localStorage
-            localStorage.setItem('user', JSON.stringify(response.data));
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setError("")
+    setLoading(true)
+
+    try {
+      const response = await axios.post("https://aprende-a-leer.fly.dev/auth/login", {
+        email,
+        password,
+      })
+
+      localStorage.setItem('user', JSON.stringify(response.data));
             console.log('Login successful:', response.data);
-            setError('');
-            // Si el login es exitoso, redirige
-             navigate('/inicio');
-        } catch (err) {
-            console.error('Login error:', err);
-            if(err.response?.data?.error === 'Usuario no existe'){
-                setRegister(true);
-            }
-            setError(err.response?.data?.error || 'Login failed' );
-        }
-    };
-    const notify = () => toast("Registro exitoso. Ahora puedes iniciar sesión");
+      navigate("/inicio")
+    } catch (err) {
+      setError(err.response?.data?.message || "Error al iniciar sesión")
+    } finally {
+      setLoading(false)
+    }
+  }
 
-    const handleRegister = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.post('https://aprende-a-leer.fly.dev/auth/register', {
-                name: regName,
-                email: regEmail,
-                password: regPassword,
-                age: regAge,
-            });
-            notify();
-            setRegSuccess('Registro exitoso. Ahora puedes iniciar sesión.');
-            setRegError('');
-            setError('');
-            setRegister(false);
-            setRegName('');
-            setRegEmail('');
-            setRegPassword('');
-            setRegAge('');
-        } catch (err) {
-            setRegError(err.response?.data?.error || 'Error al registrar');
-            setRegSuccess('');
-        }
-    };
-    const handleCloseRegister = () => {
-        setRegister(false);
-        setRegError('');
-        setRegSuccess('');
-    };
+  return (
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-purple-200 via-pink-200 to-blue-200">
+      {/* Decorative floating elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute top-20 left-10 w-16 h-16 bg-yellow-300 rounded-full opacity-60 animate-bounce"
+          style={{ animationDelay: "0s", animationDuration: "3s" }}
+        ></div>
+        <div
+          className="absolute top-40 right-20 w-12 h-12 bg-pink-300 rounded-full opacity-60 animate-bounce"
+          style={{ animationDelay: "1s", animationDuration: "4s" }}
+        ></div>
+        <div
+          className="absolute bottom-32 left-1/4 w-20 h-20 bg-purple-300 rounded-full opacity-60 animate-bounce"
+          style={{ animationDelay: "2s", animationDuration: "5s" }}
+        ></div>
+        <div
+          className="absolute bottom-20 right-1/3 w-14 h-14 bg-blue-300 rounded-full opacity-60 animate-bounce"
+          style={{ animationDelay: "0.5s", animationDuration: "3.5s" }}
+        ></div>
 
-    return (
-        <div className="flex flex-col items-center justify-center h-screen"
-      style={{
-        backgroundImage: `url(${wallpaper})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
+        {/* Stars */}
+        <div
+          className="absolute top-1/4 right-1/4 text-yellow-400 text-4xl animate-pulse"
+          style={{ animationDuration: "2s" }}
         >
-           <form className="flex max-w-md flex-col gap-4 bg-black/90 px-14 py-16 rounded-lg bg-opacity-50" onSubmit={handleSubmit}>
-          <h2 className='text-white' >Bienvenido, por favor ingresa tus datos</h2>
-      <div>
-        <div className="mb-2 block">
-          <Label htmlFor="email1">Correo</Label>
+          ✨
         </div>
-        <TextInput id="email1" type="email" placeholder="correo@ejemplo.com" required value={email} onChange={e => {setEmail(e.target.value)
-          setRegEmail(e.target.value)
-        }} />
+        <div
+          className="absolute bottom-1/3 left-1/3 text-yellow-400 text-3xl animate-pulse"
+          style={{ animationDuration: "3s" }}
+        >
+          ⭐
+        </div>
+        <div
+          className="absolute top-1/3 left-1/4 text-pink-400 text-3xl animate-pulse"
+          style={{ animationDuration: "2.5s" }}
+        >
+          ✨
+        </div>
       </div>
-      <div>
-        <div className="mb-2 block">
-          <Label htmlFor="password1">Contraseña</Label>
-        </div>
-        <TextInput id="password1" type="password" required value={password} onChange={e => {
-          setPassword(e.target.value)
-          setRegPassword(e.target.value)
-        }} />
-      </div>
-      {error && <div className="text-red-500 text-sm mb-2">{error}</div>}
-      <Button type="submit">Ingresar</Button>
-    </form>
-    {register && (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/80 z-50">
-        <div className="bg-white rounded-lg p-8 shadow-lg w-full max-w-md relative text-black">
-            <button
-                className="absolute top-2 right-2 text-gray-900 hover:text-gray-700 hover:scale-110 transition-transform hover:cursor-pointer"
-                onClick={handleCloseRegister}
-            >
-                Salir
-            </button>
-            <h2 className="text-xl font-bold mb-4">Registro de usuario</h2>
-            <form className="flex flex-col gap-4 " onSubmit={handleRegister}>
-                <div>
-                    <Label htmlFor="regName">Nombre</Label>
-                    <TextInput id="regName" className='text-white placeholder:text-white' placeholder='Nombre' type="text" required value={regName} onChange={e => setRegName(e.target.value)} />
-                </div>
-                <div>
-                    <Label htmlFor="regEmail">Correo</Label>
-                    <TextInput id="regEmail" className='text-white placeholder:text-white' placeholder='Correo' type="email" required value={regEmail} onChange={e => setRegEmail(e.target.value)} />
-                </div>
-                <div>
-                    <Label htmlFor="regPassword">Contraseña</Label>
-                    <TextInput id="regPassword" className='text-white placeholder:text-white' placeholder='Contraseña' type="password" required value={regPassword} onChange={e => setRegPassword(e.target.value)} />
-                </div>
-                <div>
-                    <Label htmlFor="regAge">Edad</Label>
-                    <TextInput id="regAge" className='text-white placeholder:text-white' placeholder='Edad' type="number" required value={regAge} onChange={e => setRegAge(e.target.value)} />
-                </div>
-                {regError && <div className="text-red-500 text-sm mb-2">{regError}</div>}
-                {regSuccess && <div className="text-green-500 text-sm mb-2">{regSuccess}</div>}
-                <Button type="submit">Registrarse</Button>
-            </form>
-        </div>
-    </div>
-)}
-        </div>
-    );
-};
 
-export default HomeLoginStudent;
+      <div className="w-full max-w-md relative z-10">
+        <div className="bg-white/90 backdrop-blur-sm rounded-[2rem] shadow-2xl p-8 border-4 border-white">
+          {/* Header with magical theme */}
+          <div className="text-center mb-8">
+            <div className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 rounded-full p-4 mb-4 shadow-lg">
+              <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                />
+              </svg>
+            </div>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-2">
+              Lecturas Mágicas
+            </h1>
+            <p className="text-lg text-purple-600 font-semibold">¡Bienvenido, pequeño lector!</p>
+          </div>
+
+          {/* Error message */}
+          {error && (
+            <div className="mb-6 p-4 bg-red-100 border-2 border-red-300 rounded-2xl flex items-start gap-3 animate-shake">
+              <span className="text-2xl">😢</span>
+              <p className="text-red-700 font-medium flex-1">{error}</p>
+            </div>
+          )}
+
+          {/* Login form */}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="email" className="block text-lg font-bold text-purple-700 mb-2">
+                Tu correo electrónico
+              </label>
+              <div className="relative">
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-purple-400">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                  </svg>
+                </div>
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full pl-14 pr-4 py-4 text-lg border-3 border-purple-300 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-400 focus:border-purple-500 transition-all bg-purple-50/50"
+                  placeholder="tu@email.com"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-lg font-bold text-purple-700 mb-2">
+                Tu contraseña secreta
+              </label>
+              <div className="relative">
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-purple-400">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    />
+                  </svg>
+                </div>
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full pl-14 pr-4 py-4 text-lg border-3 border-purple-300 rounded-2xl focus:outline-none focus:ring-4 focus:ring-purple-400 focus:border-purple-500 transition-all bg-purple-50/50"
+                  placeholder="••••••••"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-4 px-6 text-xl font-bold text-white bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 rounded-2xl hover:shadow-2xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all duration-300 flex items-center justify-center gap-3"
+            >
+              {loading ? (
+                <>
+                  <svg className="animate-spin h-6 w-6 text-white" fill="none" viewBox="0 0 24 24">
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  <span>Entrando...</span>
+                </>
+              ) : (
+                <>
+                  <span>¡Entrar a leer!</span>
+                  <span className="text-2xl">📚</span>
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Footer */}
+          <div className="mt-8 text-center">
+            <p className="text-purple-600 font-medium">
+              ¿Olvidaste tu contraseña?
+              <button className="ml-2 text-pink-600 font-bold hover:text-pink-700 underline">
+                Pide ayuda a tu maestro
+              </button>
+            </p>
+          </div>
+        </div>
+
+        {/* Fun message below card */}
+        <div className="mt-6 text-center">
+          <p className="text-purple-700 font-bold text-lg drop-shadow-lg">✨ ¡Prepárate para aventuras mágicas! ✨</p>
+        </div>
+      </div>
+    </div>
+  )
+}

@@ -28,19 +28,17 @@ const words = [
     {word: 'T con la I ti', image: TImg, audio: 'https://audio.jukehost.co.uk/QZBAA8mSdVySP8AUjCqT1XIrkEv0OXkj' },
     {word: 'T con la O to', image: TImg, audio: 'https://audio.jukehost.co.uk/32jY1pb7qQnZoA7tufjXwN7dVKxFa9XP' },
     {word: 'T con la U tu', image: TImg, audio: 'https://audio.jukehost.co.uk/NyppdIfX62Zak5I6OY4fJz028BtS9xbD' },
-    // {word: 'La', image: frecuentes, audio: 'https://audio.jukehost.co.uk/gcvloXSxP0nJCWSgIFvprXqCpGPWvNrI' },
-    // {word: 'Un', image: frecuentes, audio: 'https://audio.jukehost.co.uk/GLX90BvFxoIxjQ585cKwkSjF01YTQRXA' },
-    // {word: 'Una', image: frecuentes, audio: 'https://audio.jukehost.co.uk/FMRLQNph7qBXCmeu17ueJrUksA1BEQCw' },
-    // { word: 'Casa', image: casaImg, audio: 'https://audio.jukehost.co.uk/I22dMDoXTH5OjFRnIdr82IRunX0kCd29' },
-    // { word: 'Oso', image: osoImg, audio: 'https://audio.jukehost.co.uk/pWeyWY3RrfGtRddCELccjdCRApGAb8Oh' },
-    // { word: 'Ratón', image: ratonImg, audio: 'https://audio.jukehost.co.uk/oPG2kMGJpfFIEAuEv3AWN63yxiDTvfed' },
-    // { word: 'Flor', image: florImg, audio: 'https://audio.jukehost.co.uk/QjrOI1puoZSP3D8dgxPBf2ZNbFND1S9W' },
-    // { word: 'Perro', image: perroImg, audio: 'https://audio.jukehost.co.uk/e2jDsRUx1beMra4eazBdKA8SWr4EhhYz' },
-    // { word: 'Gato', image: gatoImg, audio: 'https://audio.jukehost.co.uk/S4tBYnMB5czQ9a6tBpdW260GvEXaxHft' },
-    // { word: 'Verde', image: verdeImg, audio: 'https://audio.jukehost.co.uk/i3AwMoKMQEgjrHblp80bSpuKmxSSFVVW' },
-    // { word: 'Comer', image: comerImg, audio: 'https://audio.jukehost.co.uk/UazJqypuyToH3Thd1JjNSCIhh8LwgOh5' },
-    // { word: 'Libro', image: libroImg, audio: 'https://audio.jukehost.co.uk/WmiFy0g5FOF85SOQDVq5S3yWAsmuWW2w' },
-    // { word: 'Azul', image: azulImg, audio: 'https://audio.jukehost.co.uk/uzbj8sLwuXC9VgHCkFZ3jMig1rmjcArU' },
+     {word: 'L con la A la', image: LImg, audio: 'https://audio.jukehost.co.uk/OJcID3Cf9zf8eBMV8qxcCAsVlxZKNhzj' },
+    {word: 'L con la E le', image: LImg, audio: 'https://audio.jukehost.co.uk/l2YXEzlF9AVlIzj4TKByQtuEUkzQkxyE' },
+    {word: 'L con la I li', image: LImg, audio: 'https://audio.jukehost.co.uk/aGaI733AzQrI8JZafSOlJDtpdEOXHdDU' },
+    {word: 'L con la O lo', image: LImg, audio: 'https://audio.jukehost.co.uk/Qw0KjUhFCq8az0FJ9QabKlaYviBfG8dH' },
+    {word: 'L con la U lu', image: LImg, audio: 'https://audio.jukehost.co.uk/T9d6inZvqxnTpbOXjoSJJoiU9LQBKCv5' },
+    {word: 'S con la A sa', image: SImg, audio: 'https://audio.jukehost.co.uk/Dh9FJ61ftc8VnDav4ToZzQ1nc9eH1dNU' },
+    {word: 'S con la E se', image: SImg, audio: 'https://audio.jukehost.co.uk/3y3dP2EVrEsNp44CiVs3IVlbP4dbicpm' },
+    {word: 'S con la I si', image: SImg, audio: 'https://audio.jukehost.co.uk/SbuoafJCHfm8rHZaGbvZ0kxQNldzijOU' },
+    {word: 'S con la O so', image: SImg, audio: 'https://audio.jukehost.co.uk/ht9C57S6izymO8brNolSy9ioLha2Y6LW' },
+    {word: 'S con la U su', image: SImg, audio: 'https://audio.jukehost.co.uk/FVFvljtNdYMNF8otpzGFQDGO3QxUUXEA' },
+  
 ]
 
 export default function Nivel2() {
@@ -139,7 +137,7 @@ export default function Nivel2() {
             <div className="text-primary-foreground">
               <p className="text-sm font-medium opacity-90">Progreso</p>
               <p className="text-xl font-bold">
-                {currentIndex + 1}/{totalWords} palabras
+                {currentIndex + 1}/{totalWords} sílabas
               </p>
             </div>
           </div>

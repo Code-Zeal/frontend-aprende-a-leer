@@ -76,7 +76,7 @@ export default function AprendeALeer() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Lecturas Mágica
+                Lecturas Mágicas
               </h1>
               <p className="text-muted-foreground mt-1">Tu aventura de aprendizaje</p>
             </div>
