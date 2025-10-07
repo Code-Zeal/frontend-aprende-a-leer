@@ -215,3 +215,121 @@ La tecnología usada es idéntica a la del Nivel 1, lo que demuestra la **reutil
     * Al completar la última sílaba, el *hook* `useNavigate` garantiza la transición fluida al nivel superior.
 
 ---
+
+## 🗣️ Ruta `/aprende/nivel3` (Nivel 3: Las Palabras)
+
+| Componente | Dirección URL | Propósito |
+| :--- | :--- | :--- |
+| **Nivel3** | `/aprende/nivel3` | Consolida el aprendizaje al mostrar **palabras completas** que el estudiante debe leer, asociar con una imagen y escuchar su pronunciación correcta. |
+
+### 🔍 ¿Qué Hace esta Página?
+
+El Nivel 3 se enfoca en el paso crucial de la lectura: pasar de sílabas a **palabras con significado**.
+
+1.  **Contenido Complejo:** La lista de contenido (`words`) no solo incluye palabras simples formadas por sílabas ya aprendidas (**Mamá**, **Sapo**, **Luna**), sino que también introduce **palabras de uso frecuente** (como **Con**, **Es**, **Que**, **Yo**, **El**, **La**). Estas palabras, aunque no siempre siguen las reglas silábicas simples, son esenciales para construir frases y se deben reconocer rápidamente.
+2.  **Misma Interfaz de Aprendizaje:** Al igual que los niveles anteriores, mantiene la misma interfaz de **tarjeta interactiva** con el botón de "Escuchar" y los botones de navegación (Anterior/Siguiente). Esto minimiza la curva de aprendizaje de la aplicación.
+3.  **Asociación Palabra-Imagen:** Se refuerza la **comprensión** al mostrar una imagen clara para la mayoría de las palabras, ayudando al estudiante a conectar el texto escrito con el concepto real.
+4.  **Avance Final:** Una vez que se revisan todas las palabras y se completa el progreso, la aplicación avanza de forma automática al **Nivel 4** (`/aprende/nivel4`), el último paso para leer frases.
+
+### ⚙️ Tecnologías Clave en este Componente
+
+Este componente reconfirma el patrón de diseño eficiente de la aplicación:
+
+* **Reutilización de Componentes (React):** Este componente es estructuralmente idéntico a `Nivel1.jsx` y `Nivel2.jsx`. Esto es un gran ejemplo de **diseño modular** en programación, donde se define una estructura (cómo mostrar una palabra y reproducir su audio) una sola vez, y se reutiliza para diferentes conjuntos de datos.
+* **Estructura de Datos (`words`):**
+    * El listado de palabras es el más largo hasta ahora (30 elementos) y es clave para el funcionamiento.
+    * Es interesante notar que las **palabras frecuentes** comparten la misma imagen (`frecuentes`), lo que indica que se centran más en la lectura del texto que en la asociación de una imagen específica para ellas.
+* **Gestión de Audio y Navegación:**
+    * El control de audio (`speakWord`, `audioRef`) y la navegación de progreso (`handleNext`, `useNavigate`) funcionan exactamente igual que en los niveles anteriores, asegurando la consistencia y fiabilidad del proceso de enseñanza.
+
+---
+
+## 📖 Ruta `/aprende/nivel4` (Nivel 4: Las Frases)
+
+| Componente | Dirección URL | Propósito |
+| :--- | :--- | :--- |
+| **Nivel4** | `/aprende/nivel4` | Combina las palabras y la gramática aprendidas para practicar la **lectura y comprensión de frases cortas y completas**. |
+
+### 🔍 ¿Qué Hace esta Página?
+
+El Nivel 4 es la **culminación del proceso de aprendizaje**, poniendo a prueba la habilidad del estudiante para leer palabras en secuencia y entender su significado como una idea completa.
+
+1.  **Enfoque en la Lectura Comprensiva:** El listado de contenido (`words`) se compone de **frases simples** y comunes (ej., "Mi mamá me ama", "Dame la mano"). El objetivo es que el estudiante reconozca las palabras frecuentes y las palabras formadas por sílabas para comprender el mensaje completo.
+2.  **Asociación Contextual:** Cada frase está vinculada a una imagen contextual que **ilustra la acción o el concepto** de la frase. Esto refuerza la comprensión lectora (por ejemplo, la frase "Veo una flor" con la imagen de una flor).
+3.  **Interfaz Consistente:** Para mantener la familiaridad y facilitar la concentración en el contenido, este módulo utiliza la **misma estructura visual y lógica** de los Niveles 1, 2 y 3 (pantalla de inicio, barra de progreso, botones de navegación y escucha).
+4.  **Finalización de la Sección:** Al completar la última frase, el flujo de navegación es diferente a los niveles anteriores. En lugar de pasar a un `Nivel5`, la aplicación **redirecciona al estudiante de vuelta a la página principal de niveles** (`/aprende`). Esto sugiere que el estudiante ha completado esta sección de aprendizaje básico y está listo para elegir un nuevo camino o repetir un nivel.
+
+### ⚙️ Tecnologías Clave en este Componente
+
+  * **Patrón de Componente Universal:** El código es el ejemplo perfecto de un **patrón de diseño de contenido reutilizable**. El desarrollador creó una plantilla única (la lógica de `NivelX.jsx`) y simplemente cambia el `words` array para modificar la experiencia de aprendizaje completa, lo cual es muy mantenible y escalable.
+  * **Finalización (Redirección):** La función `handleNext` incluye la lógica final:
+    ```javascript
+    } else {
+      navigate('/aprende') // Regresa al menú principal de niveles
+    }
+    ```
+    Esto cierra el ciclo de aprendizaje de los cuatro niveles secuenciales.
+
+-----
+
+
+## 🔒 Ruta `/admin` (Acceso de Administrador)
+
+| Componente | Dirección URL | Propósito |
+| :--- | :--- | :--- |
+| **LoginAdmin** | `/admin` | Permite a los usuarios con permisos de **administrador** (maestros, supervisores) autenticarse y acceder al panel de gestión de la aplicación. |
+
+### 🔍 ¿Qué Hace esta Página?
+
+Esta ruta es la puerta de entrada para la gestión y supervisión del sistema. Su objetivo es simple: **verificar la identidad del administrador**.
+
+1.  **Formulario de Acceso:** Recibe el correo electrónico y la contraseña del usuario administrador.
+2.  **Autenticación Segura:** Envía estas credenciales al *backend* a través de la ruta `https://aprende-a-leer.fly.dev/auth/loginAdmin`. Es crucial que esta ruta sea distinta a la de los estudiantes para mantener separadas las bases de datos de usuarios y los niveles de privilegio.
+3.  **Almacenamiento de Sesión:** Si la autenticación es exitosa, el token de administrador (la "llave") se guarda en la memoria del navegador (`localStorage`) bajo la clave `"admin"`. Esto mantiene la sesión iniciada mientras el administrador navega.
+4.  **Redirección:** Tras el inicio de sesión exitoso, el administrador es enviado automáticamente al **Panel de Inicio** (`/admin/inicio`).
+5.  **Manejo de Errores:** En caso de fallas (credenciales incorrectas o servidor caído), muestra un mensaje de error (`setError`) para informar al usuario sin dar demasiados detalles que puedan comprometer la seguridad.
+
+### ⚙️ Tecnologías Clave en este Componente
+
+Este componente utiliza herramientas de gestión de estado y comunicación:
+
+* **React Hooks (`useState`, `useNavigate`):**
+    * **`useState`:** Gestiona el estado de los campos (`email`, `password`), el mensaje de error (`error`) y el estado de carga (`isLoading`), que se usa para mostrar el *spinner* y deshabilitar el botón durante el envío de datos.
+    * **`useNavigate`:** Es esencial para redirigir al administrador a la ruta `/admin/inicio` una vez que la autenticación es completada.
+* **Axios (Comunicación de API):**
+    * Maneja la solicitud **POST** al *backend* (`/auth/loginAdmin`). Es el puente seguro entre la interfaz del navegador y el servidor de autenticación.
+* **`localStorage` (Sesión del Administrador):**
+    * Almacena la sesión con la clave `"admin"`. Este token se usará en futuras solicitudes de la sección administrativa para probar que el usuario tiene permisos para ver o modificar datos de estudiantes.
+* **Tailwind CSS (Diseño Oscuro):**
+    * El diseño emplea una paleta de colores oscura (`bg-slate-950`, `text-white`, `text-slate-400`) y acentos de color cian (`bg-cyan-500`) para darle una estética **profesional y distinta** a la interfaz del estudiante.
+
+---
+
+## 💻 Ruta `/admin/inicio` (Panel de Administración)
+
+| Componente | Dirección URL | Propósito |
+| :--- | :--- | :--- |
+| **HomeAdmin** | `/admin/inicio` | Sirve como el **tablero de control principal** para el administrador, mostrando su perfil y una lista en tiempo real de todos los estudiantes registrados. |
+
+### 🔍 ¿Qué Hace esta Página?
+
+Esta página es fundamental para la supervisión y gestión de la plataforma. Cumple dos funciones clave:
+
+1.  **Confirmación de Identidad:** Muestra claramente el nombre y la insignia de **Administrador** (`ShieldCheck`) que se recuperan del `localStorage` (la sesión iniciada). Esto asegura al usuario que ha accedido con el nivel de permisos correcto.
+2.  **Monitoreo de Estudiantes:** Se conecta directamente con la API para **obtener la lista completa de usuarios estudiantes** registrados en la aplicación. Presenta estos datos en forma de lista (nombre, correo, edad), permitiendo al administrador tener una visión general de su base de usuarios.
+
+### ⚙️ Tecnologías Clave en este Componente
+
+Este componente se enfoca en el manejo de datos asíncronos y la presentación de listas:
+
+* **React Hooks (`useEffect`, `useState`):**
+    * El primer `useEffect` se usa para **cargar los datos del administrador** (`adminData`) de la sesión guardada en `localStorage`.
+    * El segundo `useEffect` (que llama a `fetchStudents`) es clave para la funcionalidad. Se ejecuta una vez que el componente se monta para **hacer la llamada API** y obtener la lista de estudiantes.
+    * `useState` (`students`) almacena la lista de estudiantes obtenida de la API para que pueda ser mostrada en la interfaz.
+* **Axios (Recuperación de Datos):**
+    * La función `fetchStudents` utiliza `axios.get` para consultar la API en la ruta `https://aprende-a-leer.fly.dev/user/getStudents`. Esta es una operación de **lectura de datos sensible**, lo que implica que el servidor probablemente requiere que el administrador envíe su *token* de sesión (aunque esto no se muestra explícitamente en el *frontend* actual, es una práctica estándar de seguridad para esta ruta).
+* **Mapeo de Listas (JSX):**
+    * La sección principal de contenido utiliza el método `estudiantes.map(...)` para **iterar** sobre la lista de estudiantes y crear dinámicamente una tarjeta (`Card`) para cada estudiante.
+* **Flowbite-React y Lucide-React:**
+    * **`Card`:** Estructura la información del administrador y la lista de estudiantes para una visualización limpia y organizada.
+    * **`Badge`:** Muestra un **contador** con el número total de estudiantes registrados (`{estudiantes.length} estudiantes`), brindando un resumen rápido de la actividad.
